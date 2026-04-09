@@ -4,7 +4,6 @@ from agents import (
     preference_analyzer_node,
     research_agent_node,
     itinerary_planner_node,
-    budget_optimizer_node,
     final_response_node
 )
 
@@ -16,15 +15,13 @@ def build_travel_graph() -> StateGraph:
     builder.add_node("preference_analyzer", preference_analyzer_node)
     builder.add_node("researcher", research_agent_node)
     builder.add_node("itinerary_planner", itinerary_planner_node)
-    builder.add_node("budget_optimizer", budget_optimizer_node)
     builder.add_node("final_responder", final_response_node)
     
     # Add edges
     builder.add_edge(START, "preference_analyzer")
     builder.add_edge("preference_analyzer", "researcher")
     builder.add_edge("researcher", "itinerary_planner")
-    builder.add_edge("itinerary_planner", "budget_optimizer")
-    builder.add_edge("budget_optimizer", "final_responder")
+    builder.add_edge("itinerary_planner", "final_responder")
     builder.add_edge("final_responder", END)
     
     # Compile the graph
